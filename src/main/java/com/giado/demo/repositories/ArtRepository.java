@@ -1,10 +1,7 @@
 package com.giado.demo.repositories;
 
 import com.giado.demo.model.Art;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 public interface ArtRepository extends CrudRepository<Art, Long> {
 

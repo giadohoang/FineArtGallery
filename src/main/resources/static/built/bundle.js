@@ -34293,12 +34293,23 @@ var Index = /*#__PURE__*/function (_React$Component) {
         method: "GET",
         path: "/allArts"
       }).done(function (response) {
-        console.log("success 123: ", response);
+        console.log("success getting data: ", response);
+        console.log("response.entity: ", response.entity);
 
         _this2.setState({
           employees: response.entity
         });
-      });
+      }); // $.ajax({
+      //   type: "GET",
+      //   url: "/allarts",
+      //   success: function(result) {
+      //     console.log("success: ", result);
+      //     this.setState({ employees: result.entity });
+      //   },
+      //   error: function(e) {
+      //     alert("invalid request");
+      //   }
+      // });
     }
   }, {
     key: "handleBlur",

@@ -14,8 +14,20 @@ class Index extends React.Component {
   componentDidMount() {
     client({ method: "GET", path: "/allArts" }).done(response => {
       console.log("success getting data: ", response);
+      console.log("response.entity: ", response.entity);
       this.setState({ employees: response.entity });
     });
+    // $.ajax({
+    //   type: "GET",
+    //   url: "/allarts",
+    //   success: function(result) {
+    //     console.log("success: ", result);
+    //     this.setState({ employees: result.entity });
+    //   },
+    //   error: function(e) {
+    //     alert("invalid request");
+    //   }
+    // });
   }
 
   handleBlur(event) {}

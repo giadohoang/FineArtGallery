@@ -11,7 +11,8 @@ public class HomeController {
     private final UserService userService;
     private final ArtService artService;
     private final PurchaseService purchaseService;
-    public HomeController(UserService userService, ArtService artService, PurchaseService purchaseService){
+
+    public HomeController(UserService userService, ArtService artService, PurchaseService purchaseService) {
         this.userService = userService;
         this.artService = artService;
         this.purchaseService = purchaseService;

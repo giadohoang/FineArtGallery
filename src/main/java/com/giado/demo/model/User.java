@@ -1,5 +1,8 @@
 package com.giado.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +27,14 @@ public class User {
     private int type;
 
     //art create
+    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Art> portfolios = new ArrayList<>();
 
     //art purchases
+    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Purchase> collections = new ArrayList<>();
 
@@ -71,5 +78,29 @@ public class User {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    @JsonIgnore
+    public List<Art> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(List<Art> portfolios) {
+        this.portfolios = portfolios;
+    }
+    @JsonIgnore
+    public List<Purchase> getCollections() {
+        return collections;
+    }
+
+    public void setCollections(List<Purchase> collections) {
+        this.collections = collections;
     }
 }

@@ -1,11 +1,16 @@
 package com.giado.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "purchase")
-public class Purchase {
-
+@JsonIgnoreProperties({"art", "hibernateLazyInitializer", "handler"})
+public class Purchase implements java.io.Serializable {
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     public User user;
 
@@ -41,7 +46,7 @@ public class Purchase {
     public void setUser(User user) {
         this.user = user;
     }
-
+    @JsonIgnore
     public Art getArt() {
         return art;
     }
