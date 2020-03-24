@@ -1,5 +1,6 @@
 package com.giado.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import net.minidev.json.annotate.JsonIgnore;
 
@@ -27,7 +28,8 @@ public class User {
     private int type;
 
     //art create
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonBackReference
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Art> portfolios = new ArrayList<>();

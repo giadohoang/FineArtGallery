@@ -6,7 +6,7 @@ const client = require("./client");
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { employees: [] };
+    this.state = { arts: [], users: [], purchases: [] };
     this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -15,19 +15,18 @@ class Index extends React.Component {
     client({ method: "GET", path: "/allArts" }).done(response => {
       console.log("success getting data: ", response);
       console.log("response.entity: ", response.entity);
-      this.setState({ employees: response.entity });
+      this.setState({ arts: response.entity });
     });
-    // $.ajax({
-    //   type: "GET",
-    //   url: "/allarts",
-    //   success: function(result) {
-    //     console.log("success: ", result);
-    //     this.setState({ employees: result.entity });
-    //   },
-    //   error: function(e) {
-    //     alert("invalid request");
-    //   }
-    // });
+    client({ method: "GET", path: "/allUsers" }).done(response => {
+      console.log("success getting data: ", response);
+      console.log("response.entity: ", response.entity);
+      this.setState({ users: response.entity });
+    });
+    client({ method: "GET", path: "/allPurchases" }).done(response => {
+      console.log("success getting data: ", response);
+      console.log("response.entity: ", response.entity);
+      this.setState({ purchases: response.entity });
+    });
   }
 
   handleBlur(event) {}
@@ -41,93 +40,144 @@ class Index extends React.Component {
   }
 
   render() {
-    return (
-      <EmployeeList
-        employees={this.state.employees}
-        handleBlur={this.handleBlur}
-      />
-    );
+    return <ArtList arts={this.state.arts} handleBlur={this.handleBlur} />;
   }
 }
 
-class EmployeeList extends React.Component {
+class ArtList extends React.Component {
   render() {
-    const employees = this.props.employees.map(employee => (
-      <Employee
-        key={employee.id}
-        employee={employee}
+    const arts = this.props.arts.map(art => (
+      <Art
+        key={art.id}
+        art={art}
         handleClick={this.props.handleClick}
         handleBlur={this.props.handleBlur}
+        isArtist={true}
       />
     ));
     return (
       <table>
         <tbody>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Preview</th>
+            <th>Name</th>
+            <th>Artist</th>
+            <th>Year</th>
             <th>Description</th>
-            <th>Action</th>
+            <th>Price</th>
+            <th>Dimention</th>
+            <th>Options</th>
           </tr>
-          {employees}
+          {arts}
         </tbody>
       </table>
     );
   }
 }
 
-class Employee extends React.Component {
+class Art extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   render() {
     console.log("rending component");
+    var disable = !this.props.isArtist;
     return (
       <tr>
         <td>
-          <input
-            name="firstName"
+          <img
+            name="url"
             className={"form-control"}
-            defaultValue={this.props.employee.firstName}
-            onBlur={this.props.handleBlur}
+            // defaultValue={this.props.art.name}
+            // onBlur={this.props.handleBlur}
+            src={this.props.art.url}
+            style={{ maxHeight: "400px", maxWidth: "400px" }}
           />
         </td>
         <td>
           <input
-            name="lastName"
+            name="name"
             className={"form-control"}
-            defaultValue={this.props.employee.lastName}
+            defaultValue={this.props.art.name}
             onBlur={this.props.handleBlur}
+            disabled={disable}
           />
         </td>
         <td>
           <input
+            name="artist"
+            className={"form-control"}
+            defaultValue={
+              this.props.art.user.firstName + " " + this.props.art.user.lastName
+            }
+            onBlur={this.props.handleBlur}
+            disabled={true}
+          />
+        </td>
+        <td>
+          <input
+            name="year"
+            className={"form-control"}
+            defaultValue={this.props.art.year}
+            onBlur={this.props.handleBlur}
+            disabled={disable}
+          />
+        </td>
+        <td>
+          <textarea
             name="description"
             className={"form-control"}
-            defaultValue={this.props.employee.description}
+            defaultValue={this.props.art.description}
             onBlur={this.props.handleBlur}
+            disabled={disable}
           />
         </td>
         <td>
-          <button
-            id={this.props.employee.id}
-            name="edit"
-            onClick={this.handleClick}
-          >
-            Edit
-          </button>
-          <button
-            id={this.props.employee.id}
-            name="delete"
-            onClick={this.props.handleClick}
-          >
-            Delete
-          </button>
+          <input
+            name="price"
+            className={"form-control"}
+            defaultValue={"$" + this.props.art.price}
+            onBlur={this.props.handleBlur}
+            disabled={disable}
+          />
+        </td>
+        <td>
+          <input
+            name="dimention"
+            className={"form-control"}
+            defaultValue={
+              this.props.art.width + "w x" + this.props.art.height + "h"
+            }
+            onBlur={this.props.handleBlur}
+            disabled={disable}
+          />
+        </td>
+
+        <td>
+          {this.props.isArtist && (
+            <button
+              id={this.props.art.id}
+              name="delete"
+              onClick={this.handleClick}
+            >
+              Delete
+            </button>
+          )}
+          {!this.props.isArtist && (
+            <button
+              id={this.props.art.id}
+              name="Buy"
+              onClick={this.props.handleClick}
+            >
+              Buy
+            </button>
+          )}
         </td>
       </tr>
     );
   }
 }
+
 export default Index;
 //ReactDOM.render(<Index />, document.getElementById("react"));

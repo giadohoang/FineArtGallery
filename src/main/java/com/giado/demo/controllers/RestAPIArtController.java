@@ -28,15 +28,20 @@ public class RestAPIArtController {
 //
 //        return arts;
 //    }
+//    @GetMapping("/allArts")
+//    public JsonData getAllArts() {
+//        List<Art> arts = artService.getAll();
+//        List<User> users = userService.getAll();
+//        List<Purchase> purchases = purchaseService.getAll();
+//        JsonData jsonData = new JsonData(users, arts, purchases);
+//        return jsonData;
+//    }
     @GetMapping("/allArts")
-    public JsonData getAllArts() {
+    public List<Art> getAllArts() {
         List<Art> arts = artService.getAll();
-        List<User> users = userService.getAll();
-        List<Purchase> purchases = purchaseService.getAll();
-        JsonData jsonData = new JsonData(users, arts, purchases);
-        return jsonData;
-    }
 
+        return arts;
+    }
 //    @GetMapping("/art/sellers/{user_id}")
 //    public List<Album> findArtByArtist(@PathVariable("user_id") Long user_id) {
 //       List<Album> li = (ArrayList<Album>) artService.findAllName();

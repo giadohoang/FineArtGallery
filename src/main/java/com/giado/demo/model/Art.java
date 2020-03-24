@@ -3,6 +3,7 @@ package com.giado.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -16,7 +17,8 @@ public class Art implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     protected Long id;
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "artist_id")
     private User user;

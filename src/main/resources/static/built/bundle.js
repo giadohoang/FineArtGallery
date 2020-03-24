@@ -34277,7 +34277,9 @@ var Index = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      employees: []
+      arts: [],
+      users: [],
+      purchases: []
     };
     _this.handleBlur = _this.handleBlur.bind(_assertThisInitialized(_this));
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
@@ -34297,19 +34299,31 @@ var Index = /*#__PURE__*/function (_React$Component) {
         console.log("response.entity: ", response.entity);
 
         _this2.setState({
-          employees: response.entity
+          arts: response.entity
         });
-      }); // $.ajax({
-      //   type: "GET",
-      //   url: "/allarts",
-      //   success: function(result) {
-      //     console.log("success: ", result);
-      //     this.setState({ employees: result.entity });
-      //   },
-      //   error: function(e) {
-      //     alert("invalid request");
-      //   }
-      // });
+      });
+      client({
+        method: "GET",
+        path: "/allUsers"
+      }).done(function (response) {
+        console.log("success getting data: ", response);
+        console.log("response.entity: ", response.entity);
+
+        _this2.setState({
+          users: response.entity
+        });
+      });
+      client({
+        method: "GET",
+        path: "/allPurchases"
+      }).done(function (response) {
+        console.log("success getting data: ", response);
+        console.log("response.entity: ", response.entity);
+
+        _this2.setState({
+          purchases: response.entity
+        });
+      });
     }
   }, {
     key: "handleBlur",
@@ -34326,8 +34340,8 @@ var Index = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement(EmployeeList, {
-        employees: this.state.employees,
+      return /*#__PURE__*/React.createElement(ArtList, {
+        arts: this.state.arts,
         handleBlur: this.handleBlur
       });
     }
@@ -34336,84 +34350,117 @@ var Index = /*#__PURE__*/function (_React$Component) {
   return Index;
 }(React.Component);
 
-var EmployeeList = /*#__PURE__*/function (_React$Component2) {
-  _inherits(EmployeeList, _React$Component2);
+var ArtList = /*#__PURE__*/function (_React$Component2) {
+  _inherits(ArtList, _React$Component2);
 
-  var _super2 = _createSuper(EmployeeList);
+  var _super2 = _createSuper(ArtList);
 
-  function EmployeeList() {
-    _classCallCheck(this, EmployeeList);
+  function ArtList() {
+    _classCallCheck(this, ArtList);
 
     return _super2.apply(this, arguments);
   }
 
-  _createClass(EmployeeList, [{
+  _createClass(ArtList, [{
     key: "render",
     value: function render() {
       var _this3 = this;
 
-      var employees = this.props.employees.map(function (employee) {
-        return /*#__PURE__*/React.createElement(Employee, {
-          key: employee.id,
-          employee: employee,
+      var arts = this.props.arts.map(function (art) {
+        return /*#__PURE__*/React.createElement(Art, {
+          key: art.id,
+          art: art,
           handleClick: _this3.props.handleClick,
-          handleBlur: _this3.props.handleBlur
+          handleBlur: _this3.props.handleBlur,
+          isArtist: true
         });
       });
-      return /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "First Name"), /*#__PURE__*/React.createElement("th", null, "Last Name"), /*#__PURE__*/React.createElement("th", null, "Description"), /*#__PURE__*/React.createElement("th", null, "Action")), employees));
+      return /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Preview"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Artist"), /*#__PURE__*/React.createElement("th", null, "Year"), /*#__PURE__*/React.createElement("th", null, "Description"), /*#__PURE__*/React.createElement("th", null, "Price"), /*#__PURE__*/React.createElement("th", null, "Dimention"), /*#__PURE__*/React.createElement("th", null, "Options")), arts));
     }
   }]);
 
-  return EmployeeList;
+  return ArtList;
 }(React.Component);
 
-var Employee = /*#__PURE__*/function (_React$Component3) {
-  _inherits(Employee, _React$Component3);
+var Art = /*#__PURE__*/function (_React$Component3) {
+  _inherits(Art, _React$Component3);
 
-  var _super3 = _createSuper(Employee);
+  var _super3 = _createSuper(Art);
 
-  function Employee(props) {
+  function Art(props) {
     var _this4;
 
-    _classCallCheck(this, Employee);
+    _classCallCheck(this, Art);
 
     _this4 = _super3.call(this, props);
     _this4.state = {};
     return _this4;
   }
 
-  _createClass(Employee, [{
+  _createClass(Art, [{
     key: "render",
     value: function render() {
       console.log("rending component");
-      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-        name: "firstName",
-        className: "form-control",
-        defaultValue: this.props.employee.firstName,
-        onBlur: this.props.handleBlur
+      var disable = !this.props.isArtist;
+      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
+        name: "url",
+        className: "form-control" // defaultValue={this.props.art.name}
+        // onBlur={this.props.handleBlur}
+        ,
+        src: this.props.art.url,
+        style: {
+          maxHeight: "400px",
+          maxWidth: "400px"
+        }
       })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-        name: "lastName",
+        name: "name",
         className: "form-control",
-        defaultValue: this.props.employee.lastName,
-        onBlur: this.props.handleBlur
+        defaultValue: this.props.art.name,
+        onBlur: this.props.handleBlur,
+        disabled: disable
       })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+        name: "artist",
+        className: "form-control",
+        defaultValue: this.props.art.user.firstName + " " + this.props.art.user.lastName,
+        onBlur: this.props.handleBlur,
+        disabled: true
+      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+        name: "year",
+        className: "form-control",
+        defaultValue: this.props.art.year,
+        onBlur: this.props.handleBlur,
+        disabled: disable
+      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("textarea", {
         name: "description",
         className: "form-control",
-        defaultValue: this.props.employee.description,
-        onBlur: this.props.handleBlur
-      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
-        id: this.props.employee.id,
-        name: "edit",
-        onClick: this.handleClick
-      }, "Edit"), /*#__PURE__*/React.createElement("button", {
-        id: this.props.employee.id,
+        defaultValue: this.props.art.description,
+        onBlur: this.props.handleBlur,
+        disabled: disable
+      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+        name: "price",
+        className: "form-control",
+        defaultValue: "$" + this.props.art.price,
+        onBlur: this.props.handleBlur,
+        disabled: disable
+      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+        name: "dimention",
+        className: "form-control",
+        defaultValue: this.props.art.width + "w x" + this.props.art.height + "h",
+        onBlur: this.props.handleBlur,
+        disabled: disable
+      })), /*#__PURE__*/React.createElement("td", null, this.props.isArtist && /*#__PURE__*/React.createElement("button", {
+        id: this.props.art.id,
         name: "delete",
+        onClick: this.handleClick
+      }, "Delete"), !this.props.isArtist && /*#__PURE__*/React.createElement("button", {
+        id: this.props.art.id,
+        name: "Buy",
         onClick: this.props.handleClick
-      }, "Delete")));
+      }, "Buy")));
     }
   }]);
 
-  return Employee;
+  return Art;
 }(React.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Index); //ReactDOM.render(<Index />, document.getElementById("react"));

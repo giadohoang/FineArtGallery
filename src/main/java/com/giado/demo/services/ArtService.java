@@ -28,27 +28,4 @@ public class ArtService {
         return result;
     }
 
-//    public List<Art> findArtByArtist(Long user_id) {
-//        //java.util.List<Art> li = artRepository.findByUserId(user_id);
-//        //List<Art> li  = artRepository.findByUserId(user_id);
-//        List<Art> lia  = artRepository.findAll();
-//        return lia;
-//    }
-//
-//    public List<Album> findAllName(){
-//        return albumRepository.displayAllArtName();
-//    }
-//
-//    public List<Art> findArtByBuyer(Long user_id) {
-//
-//        List<Art> li = artRepository.findAllByUserId(user_id);
-//        //java.util.List<Art> li = artRepository.findByUserId(user_id);
-//        return  li;
-//    }
-//
-//    public List<Art> findAllArt(){
-//
-//        List<Art> here = artRepository.findAll();
-//        return artRepository.findAll();
-//    }
 }

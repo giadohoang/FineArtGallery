@@ -11,7 +11,8 @@ import javax.persistence.*;
 @JsonIgnoreProperties({"art", "hibernateLazyInitializer", "handler"})
 public class Purchase implements java.io.Serializable {
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name="buyer_id")
     public User user;
 
     @OneToOne
