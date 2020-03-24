@@ -87,6 +87,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
     @JsonIgnore
     public List<Art> getPortfolios() {
         return portfolios;
@@ -95,6 +96,7 @@ public class User {
     public void setPortfolios(List<Art> portfolios) {
         this.portfolios = portfolios;
     }
+
     @JsonIgnore
     public List<Purchase> getCollections() {
         return collections;

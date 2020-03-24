@@ -124,6 +124,7 @@ public class Art implements java.io.Serializable {
     public void setHeight(int height) {
         this.height = height;
     }
+
     @JsonIgnore
     public Purchase getPurchase() {
         return purchase;

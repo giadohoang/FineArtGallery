@@ -28,17 +28,17 @@ public class DatabaseLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user1 = new User("jDoe", "john", "doe", 1);
-        Art art1 = new Art("The Silent", "http://somephotosource.com/theSilent", 2001, "This Painting is about Silence", 1234, 12, 8);
+        User user1 = new User("DGan", "Daian", "Gan", 1);
+        Art art1 = new Art("Paintbrush", "https://images.pexels.com/photos/102127/pexels-photo-102127.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260", 2010, "Shallow Focus Photography of Paintbrush", 1234, 25, 25);
         art1.setUser(user1);
         user1.getPortfolios().add(art1);
-        Art art2 = new Art("The Hill", "http://somephotosource.com/theHill", 1991, "This Painting is about Hills", 3321, 10, 10);
+        Art art2 = new Art("Palm Leaf", "https://images.pexels.com/photos/1581363/pexels-photo-1581363.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", 2008, "Close-up Palm Leaf", 3321, 10, 10);
         art2.setUser(user1);
         user1.getPortfolios().add(art2);
         userRepository.save(user1);
 
-        User user2 = new User("janny", "janny", "Danny", 1);
-        Art art3 = new Art("The Night", "http://somephotosource.com/theNight", 2008, "This Painting is about Nights", 336, 25, 30);
+        User user2 = new User("SJohnson", "Steve", "Johnson", 1);
+        Art art3 = new Art("Paintbrushes", "https://images.pexels.com/photos/1047540/pexels-photo-1047540.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", 2018, "Selective Focus Photography of Paintbrush Near Paint Pallet", 336, 25, 30);
         art3.setUser(user2);
         user2.getPortfolios().add(art3);
         userRepository.save(user2);

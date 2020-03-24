@@ -46,6 +46,7 @@ public class Purchase implements java.io.Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
     @JsonIgnore
     public Art getArt() {
         return art;
