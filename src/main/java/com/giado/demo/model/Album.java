@@ -1,14 +1,12 @@
 package com.giado.demo.model;
 
 
-import javax.persistence.Column;
-
 public class Album {
+    private String name;
+
     public Album(String name) {
         this.name = name;
     }
-
-    private String name;
 
     public String getName() {
         return name;

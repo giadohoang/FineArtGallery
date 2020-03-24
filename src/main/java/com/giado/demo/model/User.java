@@ -1,23 +1,13 @@
 package com.giado.demo.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Table(name = "user")
 public class User {
-
-    public User(){};
-
-    public User(String userName, String firstName, String lastName,  UserType type){
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.type = type;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,15 +16,30 @@ public class User {
 
     @Column(name = "userName")
     private String userName;
-
     @Column(name = "firstName")
     private String firstName;
-
     @Column(name = "lastName")
     private String lastName;
+    @Column(name = "type")
+    private int type;
 
-    @Column(name="type")
-    private UserType type;
+    //art create
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Art> portfolios = new ArrayList<>();
+
+    //art purchases
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Purchase> collections = new ArrayList<>();
+
+    public User() {
+    }
+
+    public User(String userName, String firstName, String lastName, int type) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.type = type;
+    }
 
     public String getUserName() {
         return userName;
@@ -59,18 +64,12 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public UserType getType() {
+
+    public int getType() {
         return type;
     }
 
-    public void setType(UserType type) {
+    public void setType(int type) {
         this.type = type;
     }
-    //art create
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Art> portfolios = new HashSet<>();
-
-    //art purchases
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Purchase> collections = new HashSet<>();
 }

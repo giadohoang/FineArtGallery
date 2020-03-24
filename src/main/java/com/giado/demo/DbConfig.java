@@ -1,10 +1,6 @@
 package com.giado.demo;
 
-import com.giado.demo.model.Artist;
-import com.giado.demo.model.User;
-import com.giado.demo.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -38,7 +34,7 @@ public class DbConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.giado.demo/model" });
+        em.setPackagesToScan("com.giado.demo/model");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setJpaProperties(additionalProperties());
         return em;
@@ -58,6 +54,7 @@ public class DbConfig {
         return hibernateProperties;
     }
 }
+
 @Configuration
 @Profile("h2")
 @PropertySource("classpath:persistence-h2.properties")

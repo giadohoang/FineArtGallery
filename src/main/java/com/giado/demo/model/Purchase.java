@@ -6,18 +6,47 @@ import javax.persistence.*;
 @Table(name = "purchase")
 public class Purchase {
 
-    public Purchase(){};
+    @ManyToOne(fetch = FetchType.LAZY)
+    public User user;
+
+    @OneToOne
+    @JoinColumn(name = "art_id")
+    public Art art;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     protected Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    public Purchase() {
+    }
 
-    @OneToOne
-    @JoinColumn(name = "art_id")
-    private Art art;
+    public Purchase(User user, Art art) {
+        this.user = user;
+        this.art = art;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Art getArt() {
+        return art;
+    }
+
+    public void setArt(Art art) {
+        this.art = art;
+    }
 }

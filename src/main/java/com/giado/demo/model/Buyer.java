@@ -1,23 +1,21 @@
 package com.giado.demo.model;
 
-import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 //@Entity
-public class Buyer extends User{
-
-    public Buyer(){};
-
-    public Buyer(String userName,String firstName, String lastName, UserType type,List<Art> portfolio){
-        super(userName,firstName, lastName, type);
-        this.collections = portfolio;
-    }
+public class Buyer extends User {
 
     //@OneToMany
     private List<Art> collections = new ArrayList<>();
+
+    public Buyer() {
+    }
+
+    public Buyer(String userName, String firstName, String lastName, int type, List<Art> portfolio) {
+        super(userName, firstName, lastName, type);
+        this.collections = portfolio;
+    }
 
     public List<Art> getCollections() {
         return collections;

@@ -1,68 +1,62 @@
-'use strict';
+"use strict";
+import Index from "./index";
 
-// tag::vars[]
-const React = require('react'); // <1>
-const ReactDOM = require('react-dom'); // <2>
-const client = require('./client'); // <3>
-// end::vars[]
+const React = require("react");
+const ReactDOM = require("react-dom");
+const client = require("./client");
 
-// tag::app[]
-class App extends React.Component { // <1>
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { gallery: [], userName: "" };
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-	constructor(props) {
-		super(props);
-		this.state = {gallery: []};
-		this.handleBlur =this.handleBlur.bind(this);
-		this.handleClick = this.handleClick.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
+  componentDidMount() {}
 
+  handleBlur(event) {
+    if (event.target.name == "userName") {
+      this.setState({ userName: event.target.value });
+    }
+  }
 
-	componentDidMount() { // <2>
-		// client({method: 'GET', path: '/api/emps'}).done(response => {
-		// 	console.log("success 123: ", response);
-		// 	this.setState({employees: response.entity});
-		// });
-	}
+  handleSubmit(event) {
+    // console.log("user submit: ", event.target);
+    // client({ method: "GET", path: "/login/" + this.state.name }).done(
+    //   response => {
+    //     console.log("success 123: ", response);
+    //     this.setState({ gallery: response.entity });
+    //   }
+    // );
+    // event.preventDefault();
+  }
 
-	handleBlur(event){
-		
-	}
+  handleClick(event) {
+    if ((event.target.name = "edit")) {
+      console.log("Editing: ", event.target.id);
+    } else {
+      console.log("deleting: ", event.target.id);
+    }
+  }
 
-	handleSubmit(event){
-		console.log("user submit");
-		client({method: 'GET', path: '/user/login/' + "buyer1"}).done(response => {
-            console.log("success 123: ", response);
-            this.setState({gallery: response.entity});
-        });
-	}
-
-	handleClick(event){
-		if(event.target.name="edit"){
-			console.log("Editing: " , event.target.id);
-		} else {
-			console.log("deleting: ", event.target.id);
-		}
-	}
-
-	render() { // <3>
-		return (
-			<div>
-				<h1>Login</h1>
-				<form >
-        <label>
-          Name:
-          <input type="text" name="userName" />
-        </label>
-        <button type="button" onClick={this.handleSubmit}>Submit</button>
-      </form>
-			</div>
-		)
-	}
+  render() {
+    // <3>
+    return (
+      //   <div>
+      //     <form onSubmit={this.handleSubmit}>
+      //       <h3>Login</h3>
+      //       <label>
+      //         Name:
+      //         <input type="text" name="userName" onBlur={this.handleBlur} />
+      //       </label>
+      //       <input type="submit" value="Submit" />
+      //     </form>
+      //   </div>
+      <Index />
+    );
+  }
 }
 
-ReactDOM.render(
-	<App />,
-	document.getElementById('react')
-)
-
+ReactDOM.render(<App />, document.getElementById("react"));
