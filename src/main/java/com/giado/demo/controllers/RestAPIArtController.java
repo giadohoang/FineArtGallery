@@ -13,13 +13,13 @@ import java.util.List;
 @RestController
 public class RestAPIArtController {
     @Autowired
-    ArtService artService;
+    private ArtService artService;
 
     @GetMapping("/allArts")
-    public ArrayList<Art> getAllArts() {
+    public List<Art> getAllArts() {
        List<Art> arts = artService.getAll();
 
-        return artService.getAll();
+        return arts;
     }
 //    @GetMapping("/art/sellers/{user_id}")
 //    public List<Album> findArtByArtist(@PathVariable("user_id") Long user_id) {

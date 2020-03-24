@@ -19,9 +19,13 @@ public class ArtService {
     @Autowired
     private AlbumRepository albumRepository;
 
-    public ArrayList<Art> getAll() {
-
-        return (ArrayList<Art>) artRepository.findAll();
+    public List<Art> getAll() {
+        Iterable<Art> it = artRepository.findAll();
+        List<Art> result = new ArrayList<>();
+        for (Art art : it) {
+            result.add(art);
+        }
+        return result;
     }
 
 //    public List<Art> findArtByArtist(Long user_id) {

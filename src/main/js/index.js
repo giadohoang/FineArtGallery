@@ -13,7 +13,7 @@ class Index extends React.Component {
 
   componentDidMount() {
     client({ method: "GET", path: "/allArts" }).done(response => {
-      console.log("success 123: ", response);
+      console.log("success getting data: ", response);
       this.setState({ employees: response.entity });
     });
   }
