@@ -35,8 +35,10 @@ public class User {
     private List<Art> portfolios = new ArrayList<>();
 
     //art purchases
-    @JsonManagedReference
-    @JsonIgnore
+
+    //@JsonIgnore
+    //@JsonManagedReference
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Purchase> collections = new ArrayList<>();
 
@@ -99,7 +101,7 @@ public class User {
         this.portfolios = portfolios;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public List<Purchase> getCollections() {
         return collections;
     }

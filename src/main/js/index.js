@@ -6,7 +6,7 @@ const client = require("./client");
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { arts: [], users: [], purchases: [] };
+    this.state = { combinedData: [], arts: [], users: [], purchases: [] };
     this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -40,7 +40,13 @@ class Index extends React.Component {
   }
 
   render() {
-    return <ArtList arts={this.state.arts} handleBlur={this.handleBlur} />;
+    return (
+      <ArtList
+        arts={this.state.arts}
+        purchases={this.state.purchases}
+        handleBlur={this.handleBlur}
+      />
+    );
   }
 }
 
@@ -53,6 +59,10 @@ class ArtList extends React.Component {
         handleClick={this.props.handleClick}
         handleBlur={this.props.handleBlur}
         isArtist={true}
+        purchase={
+          this.props.purchases &&
+          this.props.purchases.find(purchase => purchase.art.id === art.id)
+        }
       />
     ));
     return (
@@ -66,7 +76,7 @@ class ArtList extends React.Component {
             <th>Description</th>
             <th>Price</th>
             <th>Dimention</th>
-            <th>Options</th>
+            <th>Buyer</th>
           </tr>
           {arts}
         </tbody>
@@ -81,7 +91,7 @@ class Art extends React.Component {
     this.state = {};
   }
   render() {
-    console.log("rending component");
+    console.log("rending component with buyer: ", this.props.purchase);
     var disable = !this.props.isArtist;
     return (
       <tr>
@@ -90,7 +100,7 @@ class Art extends React.Component {
             name="url"
             className={"form-control"}
             // defaultValue={this.props.art.name}
-            // onBlur={this.props.handleBlur}
+            //onBlur={this.props.handleBlur}
             src={this.props.art.url}
             style={{ maxHeight: "400px", maxWidth: "400px" }}
           />
@@ -153,8 +163,22 @@ class Art extends React.Component {
             disabled={disable}
           />
         </td>
-
         <td>
+          <input
+            name="buyer"
+            className={"form-control"}
+            defaultValue={
+              this.props.purchase &&
+              this.props.purchase.user &&
+              this.props.purchase.user.firstName +
+                " " +
+                this.props.purchase.user.lastName
+            }
+            onBlur={this.props.handleBlur}
+            disabled={disable}
+          />
+        </td>
+        {/* <td>
           {this.props.isArtist && (
             <button
               id={this.props.art.id}
@@ -173,7 +197,7 @@ class Art extends React.Component {
               Buy
             </button>
           )}
-        </td>
+        </td> */}
       </tr>
     );
   }

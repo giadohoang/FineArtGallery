@@ -34277,6 +34277,7 @@ var Index = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
+      combinedData: [],
       arts: [],
       users: [],
       purchases: []
@@ -34342,6 +34343,7 @@ var Index = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/React.createElement(ArtList, {
         arts: this.state.arts,
+        purchases: this.state.purchases,
         handleBlur: this.handleBlur
       });
     }
@@ -34372,10 +34374,13 @@ var ArtList = /*#__PURE__*/function (_React$Component2) {
           art: art,
           handleClick: _this3.props.handleClick,
           handleBlur: _this3.props.handleBlur,
-          isArtist: true
+          isArtist: true,
+          purchase: _this3.props.purchases && _this3.props.purchases.find(function (purchase) {
+            return purchase.art.id === art.id;
+          })
         });
       });
-      return /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Preview"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Artist"), /*#__PURE__*/React.createElement("th", null, "Year"), /*#__PURE__*/React.createElement("th", null, "Description"), /*#__PURE__*/React.createElement("th", null, "Price"), /*#__PURE__*/React.createElement("th", null, "Dimention"), /*#__PURE__*/React.createElement("th", null, "Options")), arts));
+      return /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Preview"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Artist"), /*#__PURE__*/React.createElement("th", null, "Year"), /*#__PURE__*/React.createElement("th", null, "Description"), /*#__PURE__*/React.createElement("th", null, "Price"), /*#__PURE__*/React.createElement("th", null, "Dimention"), /*#__PURE__*/React.createElement("th", null, "Buyer")), arts));
     }
   }]);
 
@@ -34400,12 +34405,12 @@ var Art = /*#__PURE__*/function (_React$Component3) {
   _createClass(Art, [{
     key: "render",
     value: function render() {
-      console.log("rending component");
+      console.log("rending component with buyer: ", this.props.purchase);
       var disable = !this.props.isArtist;
       return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
         name: "url",
         className: "form-control" // defaultValue={this.props.art.name}
-        // onBlur={this.props.handleBlur}
+        //onBlur={this.props.handleBlur}
         ,
         src: this.props.art.url,
         style: {
@@ -34448,15 +34453,13 @@ var Art = /*#__PURE__*/function (_React$Component3) {
         defaultValue: this.props.art.width + "w x" + this.props.art.height + "h",
         onBlur: this.props.handleBlur,
         disabled: disable
-      })), /*#__PURE__*/React.createElement("td", null, this.props.isArtist && /*#__PURE__*/React.createElement("button", {
-        id: this.props.art.id,
-        name: "delete",
-        onClick: this.handleClick
-      }, "Delete"), !this.props.isArtist && /*#__PURE__*/React.createElement("button", {
-        id: this.props.art.id,
-        name: "Buy",
-        onClick: this.props.handleClick
-      }, "Buy")));
+      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+        name: "buyer",
+        className: "form-control",
+        defaultValue: this.props.purchase && this.props.purchase.user && this.props.purchase.user.firstName + " " + this.props.purchase.user.lastName,
+        onBlur: this.props.handleBlur,
+        disabled: disable
+      })));
     }
   }]);
 
