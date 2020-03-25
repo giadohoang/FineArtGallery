@@ -34145,15 +34145,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "handleSubmit",
-    value: function handleSubmit(event) {// console.log("user submit: ", event.target);
-      // client({ method: "GET", path: "/login/" + this.state.name }).done(
-      //   response => {
-      //     console.log("success 123: ", response);
-      //     this.setState({ gallery: response.entity });
-      //   }
-      // );
-      // event.preventDefault();
-    }
+    value: function handleSubmit(event) {}
   }, {
     key: "handleClick",
     value: function handleClick(event) {
@@ -34166,21 +34158,7 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // <3>
-      return (
-        /*#__PURE__*/
-        //   <div>
-        //     <form onSubmit={this.handleSubmit}>
-        //       <h3>Login</h3>
-        //       <label>
-        //         Name:
-        //         <input type="text" name="userName" onBlur={this.handleBlur} />
-        //       </label>
-        //       <input type="submit" value="Submit" />
-        //     </form>
-        //   </div>
-        React.createElement(_index__WEBPACK_IMPORTED_MODULE_0__["default"], null)
-      );
+      return /*#__PURE__*/React.createElement(_index__WEBPACK_IMPORTED_MODULE_0__["default"], null);
     }
   }]);
 
@@ -34239,6 +34217,18 @@ __webpack_require__.r(__webpack_exports__);
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -34284,6 +34274,7 @@ var Index = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleBlur = _this.handleBlur.bind(_assertThisInitialized(_this));
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    _this.bindData = _this.bindData.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -34294,49 +34285,37 @@ var Index = /*#__PURE__*/function (_React$Component) {
 
       client({
         method: "GET",
-        path: "/allArts"
+        path: "/allData"
       }).done(function (response) {
-        console.log("success getting data: ", response);
-        console.log("response.entity: ", response.entity);
-
-        _this2.setState({
-          arts: response.entity
-        });
-      });
-      client({
-        method: "GET",
-        path: "/allUsers"
-      }).done(function (response) {
-        console.log("success getting data: ", response);
-        console.log("response.entity: ", response.entity);
-
-        _this2.setState({
-          users: response.entity
-        });
-      });
-      client({
-        method: "GET",
-        path: "/allPurchases"
-      }).done(function (response) {
-        console.log("success getting data: ", response);
-        console.log("response.entity: ", response.entity);
-
-        _this2.setState({
-          purchases: response.entity
-        });
+        _this2.bindData(response.entity);
       });
     }
   }, {
     key: "handleBlur",
     value: function handleBlur(event) {}
   }, {
+    key: "bindData",
+    value: function bindData(data) {
+      if (data) {
+        //console.log("combinedData 1: ", data);
+        var combinedData = [];
+
+        var arts = _toConsumableArray(data.artService);
+
+        var purchases = _toConsumableArray(data.purchaseService);
+
+        var users = _toConsumableArray(data.userService);
+
+        this.setState({
+          arts: arts,
+          purchases: purchases
+        });
+      }
+    }
+  }, {
     key: "handleClick",
     value: function handleClick(event) {
-      if (event.target.name = "edit") {
-        console.log("Editing: ", event.target.id);
-      } else {
-        console.log("deleting: ", event.target.id);
-      }
+      if (event.target.name = "edit") {} else {}
     }
   }, {
     key: "render",
@@ -34380,7 +34359,13 @@ var ArtList = /*#__PURE__*/function (_React$Component2) {
           })
         });
       });
-      return /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Preview"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Artist"), /*#__PURE__*/React.createElement("th", null, "Year"), /*#__PURE__*/React.createElement("th", null, "Description"), /*#__PURE__*/React.createElement("th", null, "Price"), /*#__PURE__*/React.createElement("th", null, "Dimention"), /*#__PURE__*/React.createElement("th", null, "Buyer")), arts));
+      return /*#__PURE__*/React.createElement("table", {
+        className: "table"
+      }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", {
+        className: "thead"
+      }, /*#__PURE__*/React.createElement("th", null, "Preview"), /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Artist"), /*#__PURE__*/React.createElement("th", null, "Year"), /*#__PURE__*/React.createElement("th", null, "Description"), /*#__PURE__*/React.createElement("th", null, "Price"), /*#__PURE__*/React.createElement("th", null, "Dimention"), /*#__PURE__*/React.createElement("th", null, "Buyer"))), /*#__PURE__*/React.createElement("tbody", {
+        className: "tbody"
+      }, arts));
     }
   }]);
 
@@ -34405,61 +34390,36 @@ var Art = /*#__PURE__*/function (_React$Component3) {
   _createClass(Art, [{
     key: "render",
     value: function render() {
-      console.log("rending component with buyer: ", this.props.purchase);
       var disable = !this.props.isArtist;
       return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("img", {
         name: "url",
-        className: "form-control" // defaultValue={this.props.art.name}
-        //onBlur={this.props.handleBlur}
-        ,
         src: this.props.art.url,
         style: {
-          maxHeight: "400px",
-          maxWidth: "400px"
+          maxHeight: "500px",
+          maxWidth: "500px"
         }
-      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-        name: "name",
-        className: "form-control",
-        defaultValue: this.props.art.name,
-        onBlur: this.props.handleBlur,
-        disabled: disable
-      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-        name: "artist",
-        className: "form-control",
-        defaultValue: this.props.art.user.firstName + " " + this.props.art.user.lastName,
-        onBlur: this.props.handleBlur,
-        disabled: true
-      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-        name: "year",
-        className: "form-control",
-        defaultValue: this.props.art.year,
-        onBlur: this.props.handleBlur,
-        disabled: disable
-      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("textarea", {
-        name: "description",
-        className: "form-control",
-        defaultValue: this.props.art.description,
-        onBlur: this.props.handleBlur,
-        disabled: disable
-      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-        name: "price",
-        className: "form-control",
-        defaultValue: "$" + this.props.art.price,
-        onBlur: this.props.handleBlur,
-        disabled: disable
-      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-        name: "dimention",
-        className: "form-control",
-        defaultValue: this.props.art.width + "w x" + this.props.art.height + "h",
-        onBlur: this.props.handleBlur,
-        disabled: disable
-      })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
-        name: "buyer",
-        className: "form-control",
-        defaultValue: this.props.purchase && this.props.purchase.user && this.props.purchase.user.firstName + " " + this.props.purchase.user.lastName,
-        onBlur: this.props.handleBlur,
-        disabled: disable
-      })));
+      })), /*#__PURE__*/React.createElement("td", {
+        name: "name"
+      }, this.props.art.name), /*#__PURE__*/React.createElement("td", {
+        name: "artist"
+      }, this.props.art.user.firstName + " " + this.props.art.user.lastName), /*#__PURE__*/React.createElement("td", {
+        name: "year"
+      }, this.props.art.year), /*#__PURE__*/React.createElement("td", {
+        name: "description"
+      }, this.props.art.description), /*#__PURE__*/React.createElement("td", {
+        name: "price"
+      }, "$ " + this.props.art.price), /*#__PURE__*/React.createElement("td", {
+        name: "dimention"
+      }, this.props.art.width + "w x" + this.props.art.height + "h"), this.props.purchase && /*#__PURE__*/React.createElement("td", {
+        name: "buyer"
+      }, this.props.purchase.user && this.props.purchase.user.firstName + " " + this.props.purchase.user.lastName), !this.props.purchase && /*#__PURE__*/React.createElement("td", {
+        name: "buyer"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "btn btn-success btn-block ",
+        style: {
+          borderRadius: "6px"
+        }
+      }, "Buy")));
     }
   }]);
 

@@ -1,6 +1,5 @@
 package com.giado.demo.controllers;
 
-import com.giado.demo.model.Art;
 import com.giado.demo.model.User;
 import com.giado.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

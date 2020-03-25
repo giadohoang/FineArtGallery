@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -42,6 +43,16 @@ public class RestAPIArtController {
 
         return arts;
     }
+
+    @GetMapping("/allData")
+    public HashMap<String, Object> getCombined() {
+        HashMap<String, Object> combined = new HashMap();
+        combined.put("artService", artService.getAll());
+        combined.put("userService", userService.getAll());
+        combined.put("purchaseService", purchaseService.getAll());
+        return combined;
+    }
+
 //    @GetMapping("/art/sellers/{user_id}")
 //    public List<Album> findArtByArtist(@PathVariable("user_id") Long user_id) {
 //       List<Album> li = (ArrayList<Album>) artService.findAllName();

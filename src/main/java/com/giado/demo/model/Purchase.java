@@ -1,8 +1,5 @@
 package com.giado.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -14,7 +11,7 @@ public class Purchase implements java.io.Serializable {
     //@JsonBackReference
     @JsonManagedReference
     @ManyToOne
-    @JoinColumn(name="buyer_id")
+    @JoinColumn(name = "buyer_id")
     public User user;
 
     @OneToOne

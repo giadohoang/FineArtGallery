@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -20,6 +21,11 @@ public class UserService {
             result.add(user);
         }
         return result;
+    }
+
+    public Optional<User> geUdserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        return user;
     }
 
 //    public User findUserByUsername(String userName) {

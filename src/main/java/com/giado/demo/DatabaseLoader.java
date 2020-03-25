@@ -43,26 +43,26 @@ public class DatabaseLoader implements CommandLineRunner {
         user2.getPortfolios().add(art3);
         userRepository.save(user2);
 
-        User user3 = new User("tJohns", "Timothy", "Johns", 1);
-        Art art4 = new Art("The Day", "http://somephotosource.com/theDay", 1991, "This Painting is about Day", 456, 10, 10);
+        User user3 = new User("BSayles", "Brett", "Sayles", 1);
+        Art art4 = new Art("Painting on Wall", "https://images.pexels.com/photos/1340502/pexels-photo-1340502.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", 2018, "Photo of Woman Painting on Wall", 456, 10, 10);
         art4.setUser(user3);
         user3.getPortfolios().add(art4);
         userRepository.save(user3);
 
-        User user4 = new User("daniel", "daniel", "Sync", 1);
-        Art art5 = new Art("The Noon", "http://somephotosource.com/theNoon", 2014, "This Painting is about Noon", 99, 8, 5);
+        User user4 = new User("EGrossgasteiger", "eberhard", "grossgasteiger", 1);
+        Art art5 = new Art("Pink Cherry", "https://images.pexels.com/photos/2086361/pexels-photo-2086361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", 2019, "Teal and Pink Cherry Print Garment", 99, 8, 5);
         art5.setUser(user4);
         user4.getPortfolios().add(art5);
         userRepository.save(user4);
 
-        User user5 = new User("james", "james", "White", 2);
+        User user5 = new User("RAbramovich", "Roman", "Abramovich", 2);
         Purchase purchase1 = new Purchase(user5, art1);
         user5.getCollections().add(purchase1);
         Purchase purchase2 = new Purchase(user5, art3);
         user5.getCollections().add(purchase2);
         userRepository.save(user5);
 
-        User user6 = new User("alice", "john", "doe", 2);
+        User user6 = new User("FPinault", "Francois", "Pinault", 2);
         Purchase purchase3 = new Purchase(user6, art5);
         user6.getCollections().add(purchase3);
         userRepository.save(user6);

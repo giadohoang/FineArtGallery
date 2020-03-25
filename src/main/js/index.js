@@ -3,39 +3,43 @@
 const React = require("react");
 const ReactDOM = require("react-dom");
 const client = require("./client");
+
 class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = { combinedData: [], arts: [], users: [], purchases: [] };
     this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.bindData = this.bindData.bind(this);
   }
 
   componentDidMount() {
-    client({ method: "GET", path: "/allArts" }).done(response => {
-      console.log("success getting data: ", response);
-      console.log("response.entity: ", response.entity);
-      this.setState({ arts: response.entity });
-    });
-    client({ method: "GET", path: "/allUsers" }).done(response => {
-      console.log("success getting data: ", response);
-      console.log("response.entity: ", response.entity);
-      this.setState({ users: response.entity });
-    });
-    client({ method: "GET", path: "/allPurchases" }).done(response => {
-      console.log("success getting data: ", response);
-      console.log("response.entity: ", response.entity);
-      this.setState({ purchases: response.entity });
+    client({ method: "GET", path: "/allData" }).done(response => {
+      this.bindData(response.entity);
     });
   }
 
   handleBlur(event) {}
 
+  bindData(data) {
+    if (data) {
+      //console.log("combinedData 1: ", data);
+
+      var combinedData = [];
+      var arts = [...data.artService];
+      var purchases = [...data.purchaseService];
+      var users = [...data.userService];
+
+      this.setState({
+        arts: arts,
+        purchases: purchases
+      });
+    }
+  }
+
   handleClick(event) {
     if ((event.target.name = "edit")) {
-      console.log("Editing: ", event.target.id);
     } else {
-      console.log("deleting: ", event.target.id);
     }
   }
 
@@ -66,9 +70,9 @@ class ArtList extends React.Component {
       />
     ));
     return (
-      <table>
-        <tbody>
-          <tr>
+      <table className="table">
+        <thead>
+          <tr className="thead">
             <th>Preview</th>
             <th>Name</th>
             <th>Artist</th>
@@ -78,8 +82,8 @@ class ArtList extends React.Component {
             <th>Dimention</th>
             <th>Buyer</th>
           </tr>
-          {arts}
-        </tbody>
+        </thead>
+        <tbody className="tbody">{arts}</tbody>
       </table>
     );
   }
@@ -91,93 +95,46 @@ class Art extends React.Component {
     this.state = {};
   }
   render() {
-    console.log("rending component with buyer: ", this.props.purchase);
     var disable = !this.props.isArtist;
     return (
       <tr>
         <td>
           <img
             name="url"
-            className={"form-control"}
-            // defaultValue={this.props.art.name}
-            //onBlur={this.props.handleBlur}
             src={this.props.art.url}
-            style={{ maxHeight: "400px", maxWidth: "400px" }}
+            style={{ maxHeight: "500px", maxWidth: "500px" }}
           />
         </td>
-        <td>
-          <input
-            name="name"
-            className={"form-control"}
-            defaultValue={this.props.art.name}
-            onBlur={this.props.handleBlur}
-            disabled={disable}
-          />
+        <td name="name">{this.props.art.name}</td>
+        <td name="artist">
+          {this.props.art.user.firstName + " " + this.props.art.user.lastName}
         </td>
-        <td>
-          <input
-            name="artist"
-            className={"form-control"}
-            defaultValue={
-              this.props.art.user.firstName + " " + this.props.art.user.lastName
-            }
-            onBlur={this.props.handleBlur}
-            disabled={true}
-          />
+        <td name="year">{this.props.art.year}</td>
+        <td name="description">{this.props.art.description}</td>
+        <td name="price">{"$ " + this.props.art.price}</td>
+        <td name="dimention">
+          {this.props.art.width + "w x" + this.props.art.height + "h"}
         </td>
-        <td>
-          <input
-            name="year"
-            className={"form-control"}
-            defaultValue={this.props.art.year}
-            onBlur={this.props.handleBlur}
-            disabled={disable}
-          />
-        </td>
-        <td>
-          <textarea
-            name="description"
-            className={"form-control"}
-            defaultValue={this.props.art.description}
-            onBlur={this.props.handleBlur}
-            disabled={disable}
-          />
-        </td>
-        <td>
-          <input
-            name="price"
-            className={"form-control"}
-            defaultValue={"$" + this.props.art.price}
-            onBlur={this.props.handleBlur}
-            disabled={disable}
-          />
-        </td>
-        <td>
-          <input
-            name="dimention"
-            className={"form-control"}
-            defaultValue={
-              this.props.art.width + "w x" + this.props.art.height + "h"
-            }
-            onBlur={this.props.handleBlur}
-            disabled={disable}
-          />
-        </td>
-        <td>
-          <input
-            name="buyer"
-            className={"form-control"}
-            defaultValue={
-              this.props.purchase &&
-              this.props.purchase.user &&
+        {this.props.purchase && (
+          <td name="buyer">
+            {this.props.purchase.user &&
               this.props.purchase.user.firstName +
                 " " +
-                this.props.purchase.user.lastName
-            }
-            onBlur={this.props.handleBlur}
-            disabled={disable}
-          />
-        </td>
+                this.props.purchase.user.lastName}
+          </td>
+        )}
+
+        {!this.props.purchase && (
+          <td name="buyer">
+            <button
+              className="btn btn-success btn-block "
+              style={{ borderRadius: "6px" }}
+            >
+              Buy
+            </button>
+          </td>
+        )}
+
         {/* <td>
           {this.props.isArtist && (
             <button

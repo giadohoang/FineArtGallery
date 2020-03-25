@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,9 +13,11 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Art Gallery Web Application</h1>
-        <p>This application display list of arts, artist's info, and buyer</p>
+        <p >This section display Art Collection that you have purchased</p>
+        <p th:text="${id}"></p>
     </div>
-    <div style="padding-top: 5px ;border: double" id="react"></div>
+
+    <div style="padding-top: 5px ;border: double" id="collection"></div>
 </div>
 
 <script src="built/bundle.js"></script>

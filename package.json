@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "Demo Application for Cirrus Logic",
   "dependencies": {
+    "bootstrap": "^4.4.1",
     "react": "^16.5.2",
+    "react-bootstrap": "^1.0.0",
     "react-dom": "^16.5.2",
     "react-table": "^7.0.0",
     "rest": "^1.3.1"

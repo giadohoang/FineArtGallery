@@ -17,7 +17,7 @@ public class Art implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     protected Long id;
-//    @JsonBackReference
+    //    @JsonBackReference
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "artist_id")
